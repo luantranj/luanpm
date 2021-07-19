@@ -25,6 +25,7 @@ export default function Home({ btc, portfolio }) {
   const btcVND = data.market_data.current_price.vnd;
   const priceChange24H = data.market_data.price_change_24h_in_currency.vnd;
   const marketCap = data.market_data.market_cap.vnd;
+  const update = data.market_data.last_updated.split('T');
 
   const hashNumber = portfolio[0].hash.slice(0, 8);
   const btcAmount = portfolio[0].diagnostics[1].value;
@@ -32,6 +33,7 @@ export default function Home({ btc, portfolio }) {
 
   const portfolioBalance = btcAmount * btcVND;
   const profit = portfolioBalance - principal;
+  
   // console.log(data);
   // console.log(portfolio);
 
@@ -60,6 +62,12 @@ export default function Home({ btc, portfolio }) {
 
       <div className="container-lg">
         <div className="row justify-content-center">
+          <div className="col mt-5 text-center">
+            <small className="text-muted">Last Updated at { update[1].split('.')[0] }, { update[0] }</small>            
+          </div>
+        </div>
+        <div className="row justify-content-center">
+          {
           <div className="col-md-6">            
             <div className="card text-white bg-success mt-5 mx-auto" style={{maxWidth: 400}}>
               <div className="card-header">
@@ -89,6 +97,7 @@ export default function Home({ btc, portfolio }) {
               </div>            
             </div>                        
           </div>
+          }
 
           <div className="col-md-5 mx-auto">          
             <div className="card border-warning mt-5 fw-bold mx-auto" style={{maxWidth: 400}}>
