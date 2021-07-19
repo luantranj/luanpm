@@ -28,7 +28,7 @@ export default function Home({ btc, portfolio }) {
   const marketCap = data.market_data.market_cap.vnd;
   const update = data.market_data.last_updated.split('T');
   
-  // console.log(data);
+  console.log(data);
   // console.log(portfolio);
 
 
@@ -57,13 +57,13 @@ export default function Home({ btc, portfolio }) {
       <div className="container-lg">
         <div className="row justify-content-center">
           <div className="col mt-5 text-center">
-            <small className="text-muted">Last Updated at { update[1].split('.')[0] }, { update[0] }</small>            
+            <small className="text-muted">Last Updated at { update[1].split('.')[0] }, { update[0] } (GMT)</small>            
           </div>
         </div>
         <div className="row justify-content-center">
           {portfolio.map(p => {return (
             <div className="col-md-6" key={p.id}>            
-            <div className={ p.id > 0 ? "card text-white mt-5 mx-auto bg-secondary": "card text-white mt-5 mx-auto bg-success" } style={{maxWidth: 400}}>
+            <div className={ p.id > 0 ? "card text-white mt-5 mx-auto bg-secondary": "card text-white mt-5 mx-auto bg-success" }>
               <div className="card-header">
                 <a href="https://passwordsgenerator.net/sha256-hash-generator/" className="link-light text-decoration-none">
                   <strong>{ p.hash.slice(0, 8) }</strong>
@@ -96,7 +96,7 @@ export default function Home({ btc, portfolio }) {
           }
 
           <div className="col-md-4 mx-auto">          
-            <div className="card border-warning mt-5 fw-bold mx-auto" style={{maxWidth: 400}}>
+            <div className="card border-warning mt-5 fw-bold mx-auto">
               <div className="card-header text-warning">BITCOIN</div>
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
