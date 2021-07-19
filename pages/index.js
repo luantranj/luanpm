@@ -15,7 +15,8 @@ export async function getStaticProps() {
   const portfolio = await luanPM.json();
 
   return {
-    props: { btc, portfolio }
+    props: { btc, portfolio },
+    revalidate: 60
   }
 }
 
