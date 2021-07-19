@@ -26,13 +26,6 @@ export default function Home({ btc, portfolio }) {
   const priceChange24H = data.market_data.price_change_24h_in_currency.vnd;
   const marketCap = data.market_data.market_cap.vnd;
   const update = data.market_data.last_updated.split('T');
-
-  const hashNumber = portfolio[0].hash.slice(0, 8);
-  const btcAmount = portfolio[0].diagnostics[1].value;
-  const principal = portfolio[0].diagnostics[0].value;
-
-  const portfolioBalance = btcAmount * btcVND;
-  const profit = portfolioBalance - principal;
   
   // console.log(data);
   // console.log(portfolio);
@@ -67,39 +60,41 @@ export default function Home({ btc, portfolio }) {
           </div>
         </div>
         <div className="row justify-content-center">
-          {
-          <div className="col-md-6">            
-            <div className="card text-white bg-success mt-5 mx-auto" style={{maxWidth: 400}}>
+          {portfolio.map(p => {return (
+            <div className="col-md-6" key={p.id}>            
+            <div className={ p.id > 0 ? "card text-white mt-5 mx-auto bg-secondary": "card text-white mt-5 mx-auto bg-success" } style={{maxWidth: 400}}>
               <div className="card-header">
                 <a href="https://passwordsgenerator.net/sha256-hash-generator/" className="link-light text-decoration-none">
-                  <strong>{ hashNumber }</strong>
+                  <strong>{ p.hash.slice(0, 8) }</strong>
                 </a>
               </div>
               <ul className="list-group fw-bold">
                   <li className="list-group-item">
                     <small className="text-muted">Portfolio Balance: </small>
-                    { formatVND(portfolioBalance, 10) }
+                    { formatVND(p.diagnostics[1].value * btcVND, 10) }
                   </li>
                   <li className="list-group-item">
                     <small className="text-muted">Profit: </small>
-                    <span className={ profit > 0 ? 'text-success' : 'text-danger' }> { formatVND(profit, 10) }</span>
+                    <span className={ p.diagnostics[1].value * btcVND - p.diagnostics[0].value > 0 ? 'text-success' : 'text-danger' }> { formatVND(p.diagnostics[1].value * btcVND - p.diagnostics[0].value, 10) }</span>
                   </li>
                   <li className="list-group-item">
                     <small className="text-muted">Principal: </small>
-                    <span className="fw-normal">{ formatVND(principal, 10) }</span>
+                    <span className="fw-normal">{ formatVND(p.diagnostics[0].value, 10) }</span>
                   </li>                    
               </ul>  
               <div className="card-footer align-items-center">
                 <Image src="/bitcoin.png" width="16" height="16" alt="Bitcoin icon" />
                 <small>                  
-                  <span className="fw-normal"> { btcAmount }</span>
+                  <span className="fw-normal"> { p.diagnostics[1].value }</span>
                 </small>
               </div>            
             </div>                        
           </div>
+          )})
+          
           }
 
-          <div className="col-md-5 mx-auto">          
+          <div className="col-md-4 mx-auto">          
             <div className="card border-warning mt-5 fw-bold mx-auto" style={{maxWidth: 400}}>
               <div className="card-header text-warning">BITCOIN</div>
               <ul className="list-group list-group-flush">
