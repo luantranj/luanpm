@@ -26,11 +26,17 @@ export default function Home({ btc, portfolio }) {
   const btcVND = data.market_data.current_price.vnd;
   const priceChange24H = data.market_data.price_change_24h_in_currency.vnd;
   const marketCap = data.market_data.market_cap.vnd;
-  const update = data.market_data.last_updated.split('T');
+  const update = data.market_data.last_updated;
   
-  console.log(data);
+  // console.log(data);
   // console.log(portfolio);
 
+  function convertTZ(date) {
+    const tzString = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    return new Date(date).toLocaleString("en-US", {timeZone: tzString});
+  }
+
+  console.log(update.replace(/-/g, '/'));
 
   function formatVND(number, maximumSignificantDigits) {
     return (
@@ -57,7 +63,7 @@ export default function Home({ btc, portfolio }) {
       <div className="container-lg">
         <div className="row justify-content-center">
           <div className="col mt-5 text-center">
-            <small className="text-muted">Last Updated at { update[1].split('.')[0] }, { update[0] } (GMT)</small>            
+            <small className="text-muted">Last Updated at { convertTZ(update) }</small>            
           </div>
         </div>
         <div className="row justify-content-center">
