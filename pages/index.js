@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
+import useRouter from 'next/router';
 
 // Import coingecko-api
 const CoinGecko = require('coingecko-api');
@@ -30,13 +32,20 @@ export default function Home({ btc, portfolio }) {
   
   // console.log(data);
   // console.log(portfolio);
+  
+  const router = useRouter;
+	
 
   function convertTZ(date) {
     const tzString = Intl.DateTimeFormat().resolvedOptions().timeZone;
     return new Date(date).toLocaleString("en-US", {timeZone: tzString});
   }
 
-  console.log(update.replace(/-/g, '/'));
+
+  function updatePrice() {
+    window.location.reload(true);
+  }
+
 
   function formatVND(number, maximumSignificantDigits) {
     return (
@@ -63,7 +72,7 @@ export default function Home({ btc, portfolio }) {
       <div className="container-lg">
         <div className="row justify-content-center">
           <div className="col mt-5 text-center">
-            <small className="text-muted">Last Updated at { convertTZ(update) }</small>            
+            <small className="text-muted"><Link href="/"><a onClick={updatePrice} className="text-decoration-none link-secondary">Last Updated at { convertTZ(update) }</a></Link></small>          
           </div>
         </div>
         <div className="row justify-content-center">
