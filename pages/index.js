@@ -102,7 +102,7 @@ export default function Home({ btc, portfolio }) {
           }
 
           <div className="col-md-4 mx-auto">          
-            <div className="card border-warning mt-5 fw-bold mx-auto">
+            <div className="card border-warning my-5 fw-bold mx-auto">
               <div className="card-header text-warning">BITCOIN</div>
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
